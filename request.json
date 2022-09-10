@@ -6,8 +6,8 @@
 		"coding": [
 		  {
 			"system": "http://terminology.hl7.org/CodeSystem/observation-category",
-			"code": "vital-signs",
-			"display": "vital-signs"
+			"code": "substance",
+			"display": "substance"
 		  }
 		]
 	  }
@@ -16,11 +16,11 @@
 	  "coding": [
 		{
 		  "system": "http://loinc.org",
-		  "code": "399753006",
-		  "display": "Date Death"
+		  "code": "39972003",
+		  "display": "Sodium"
 		}
 	  ],
-	  "text": "Date Death"
+	  "text": "Sodium"
 	},
 	"subject": {
 	  "reference": "Patient/"
@@ -33,17 +33,17 @@
 		  "coding": [
 			{
 			  "system": "http://loinc.org",
-			  "code": "399753006",
-			  "display": "DD"
+			  "code": "39972003",
+			  "display": "Sodium"
 			}
 		  ],
-		  "text": "DD"
+		  "text": "Sodium"
 		},
 		"valueQuantity": {
 		  "value": 85.36662246556972,
-		  "unit": "days",
+		  "unit": "μmol/L",
 		  "system": "http://unitsofmeasure.org",
-		  "code": "days"
+		  "code": "μmol/L"
 		}
 	  }
 	]

@@ -1,17 +1,23 @@
-import json
-from pprint import pprint
-
 import requests
 
 headers = {'Content-type': 'application/json'}
-# rsp = requests.get('http://147.102.33.214:8080/fhir?_getpages=ac1ee897-b78f-4ab5-8f93-ca9fd969b60b&_getpagesoffset=40&_count=1500&_pretty=true&_bundletype=searchset', headers=headers)
-# with open('data.json', 'w') as json_out:
-#     json_out.write(json.dumps(rsp.json()))
 
-# rsp = requests.get('http://147.102.33.214:8080/fhir?_getpages=afe8876e-d02e-4604-a5fb-7429db79683c&_getpagesoffset=7&_count=1500&_pretty=true&_bundletype=searchset', headers=headers)
-# with open('condition_data.json', 'w') as json_out:
-#     json_out.write(json.dumps(rsp.json()))
+# with open('observation-data.json', 'r') as json_in:
+#     json_data = json_in.read()
+#
+# data = json.loads(json_data)
+#
+# for i in data['entry']:
+#     i['resource']['effectiveDateTime'] = '2022-08' + i['resource']['effectiveDateTime'][7:]
+#     i['resource']['issued'] = '2022-08' + i['resource']['effectiveDateTime'][7:]
+#     rsp = requests.put(f'http://147.102.33.214:8080/fhir/Observation/{int(i["resource"]["id"])}?_format=json&_pretty=true', headers=headers, data=json.dumps(i['resource']))
+#
+#     if rsp.status_code == 200:
+#         print('Success')
+#     sleep(2)
 
-rsp = requests.get('http://147.102.33.214:8080/fhir/Patient?_getpagesoffset=13&_count=400&_pretty=true&_bundletype=searchset', headers=headers)
-
-pprint(rsp.json()['entry'][0])
+rsp = requests.get('http://147.102.33.214:8080/fhir/Condition?_getpagesoffset=7&_count=1502&_pretty=true&_bundletype=searchset', headers=headers)
+if rsp.status_code == 200:
+    for i in rsp.json()['entry']:
+        if i['resource']['recordedDate'][:7] != '2022-08':
+            print('The date dose not match!')

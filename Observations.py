@@ -26,7 +26,7 @@ def main():
     counter = 100271
     for i in range(0, 299):
         data['subject']['reference'] = f'Patient/{counter}'
-        data['component'][0]['valueQuantity']['value'] = int(hrt[i][10])
+        data['component'][0]['valueQuantity']['value'] = int(hrt[i][8])
         data['effectiveDateTime'] = str(datetime.datetime.now()).replace(" ", 'T').replace(".", "-04:00 ")[:25]
         data['issued'] = str(datetime.datetime.now()).replace(" ", 'T').replace(".", "-04:00 ")[:25]
         counter += 1
@@ -35,7 +35,7 @@ def main():
             print("Not Success!")
         elif rsp.status_code == 201:
             print("Success!")
-        sleep(2)
+        sleep(3)
 
 
 if __name__ == '__main__':
