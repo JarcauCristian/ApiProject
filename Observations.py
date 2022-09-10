@@ -1,7 +1,5 @@
 import csv
 import datetime
-from pprint import pprint
-from time import sleep
 import requests
 import json
 
@@ -26,6 +24,7 @@ def main():
     counter = 100271
     for i in range(0, 299):
         data['subject']['reference'] = f'Patient/{counter}'
+<<<<<<< HEAD
         data['component'][0]['valueQuantity']['value'] = int(hrt[i][8])
         data['effectiveDateTime'] = str(datetime.datetime.now()).replace(" ", 'T').replace(".", "-04:00 ")[:25]
         data['issued'] = str(datetime.datetime.now()).replace(" ", 'T').replace(".", "-04:00 ")[:25]
@@ -36,6 +35,18 @@ def main():
         elif rsp.status_code == 201:
             print("Success!")
         sleep(3)
+=======
+        data['valueQuantity']['value'] = float(hrt[i][7])
+        data['effectiveDateTime'] = str(datetime.datetime.now()).replace(" ", 'T').replace(".", "-04:00 ")[:25]
+        data['issued'] = str(datetime.datetime.now()).replace(" ", 'T').replace(".", "-04:00 ")[:25]
+        counter += 1
+
+    rsp = requests.post("http://147.102.33.214:8080/fhir/Observation?_pretty=true", headers=headers, data=json.dumps(data))
+    if rsp.status_code == 400 or rsp.status_code == 404:
+        print("Not Success!")
+    elif rsp.status_code == 201:
+        print("Success!")
+>>>>>>> af417752bbce89cc9724261c20719d9ac7a9812d
 
 
 if __name__ == '__main__':

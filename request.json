@@ -16,17 +16,26 @@
 	  "coding": [
 		{
 		  "system": "http://loinc.org",
+<<<<<<< HEAD
 		  "code": "39972003",
 		  "display": "Sodium"
 		}
 	  ],
 	  "text": "Sodium"
+=======
+		  "code": "15373003",
+		  "display": "Creatinine"
+		}
+	  ],
+	  "text": "Creatinine"
+>>>>>>> af417752bbce89cc9724261c20719d9ac7a9812d
 	},
 	"subject": {
 	  "reference": "Patient/"
 	},
 	"effectiveDateTime": "2021-07-18T19:10:16-04:00",
 	"issued": "2021-07-18T19:10:16-04:00",
+<<<<<<< HEAD
 	"component": [
 	  {
 		"code": {
@@ -44,7 +53,12 @@
 		  "unit": "μmol/L",
 		  "system": "http://unitsofmeasure.org",
 		  "code": "μmol/L"
+=======
+	"valueQuantity": {
+		  "value": 85.36662246556972,
+		  "unit": "mg/dL",
+		  "system": "http://unitsofmeasure.org",
+		  "code": "mg/dL"
+>>>>>>> af417752bbce89cc9724261c20719d9ac7a9812d
 		}
-	  }
-	]
 }
