@@ -16,21 +16,21 @@
 	  "coding": [
 		{
 		  "system": "http://loinc.org",
-		  "code": "55284-4",
-		  "display": "Blood Pressure"
+		  "code": "70822001",
+		  "display": "Ejection Fraction"
 		}
 	  ],
-	  "text": "Blood Pressure"
+	  "text": "Ejection Fraction"
 	},
 	"subject": {
-	  "reference": "Patient/46"
+	  "reference": "Patient/"
 	},
 	"effectiveDateTime": "2021-07-18T19:10:16-04:00",
 	"issued": "2021-07-18T19:10:16-04:00",
 	"valueQuantity": {
 		"value": 117.90191404221025,
-		"unit": "mm[Hg]",
+		"unit": "%",
 		"system": "http://unitsofmeasure.org",
-		"code": "mm[Hg]"
+		"code": "%"
 	}
 }

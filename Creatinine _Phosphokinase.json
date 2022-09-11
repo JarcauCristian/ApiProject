@@ -6,8 +6,8 @@
 		"coding": [
 		  {
 			"system": "http://terminology.hl7.org/CodeSystem/observation-category",
-			"code": "vital-signs",
-			"display": "vital-signs"
+			"code": "substance",
+			"display": "substance"
 		  }
 		]
 	  }
@@ -16,21 +16,21 @@
 	  "coding": [
 		{
 		  "system": "http://loinc.org",
-		  "code": "55284-4",
-		  "display": "Blood Pressure"
+		  "code": "75828004",
+		  "display": "Creatinine Phosphokinase"
 		}
 	  ],
-	  "text": "Blood Pressure"
+	  "text": "Creatinine Phosphokinase"
 	},
 	"subject": {
-	  "reference": "Patient/46"
+	  "reference": "Patient/"
 	},
 	"effectiveDateTime": "2021-07-18T19:10:16-04:00",
 	"issued": "2021-07-18T19:10:16-04:00",
 	"valueQuantity": {
 		"value": 117.90191404221025,
-		"unit": "mm[Hg]",
+		"unit": "mcg/L",
 		"system": "http://unitsofmeasure.org",
-		"code": "mm[Hg]"
+		"code": "mcg/L"
 	}
 }
