@@ -23,7 +23,7 @@ Smoker = []
 Arterial_Hypertension = []
 Death = []
 
-for bundle in range(100271, 100569, 2):
+for bundle in range(100271, 100570):
     rsp = requests.get(
         f'http://147.102.33.214:8080/fhir/Patient?_id={bundle}&_revinclude=Observation:subject&_revinclude=Condition:subject&_pretty=True',
         headers=headers)
@@ -94,7 +94,7 @@ for i in cpk_list[0].keys():
         csv_writer.writerow(
             ['TIME', 'Event', 'Gender', 'Smoking', 'Diabetes', 'BP', 'Anaemia', 'Age', 'Ejection.Fraction', 'Sodium', 'Creatinine',
              'Platelets', 'CPK'])
-        for j in range(0, 149):
+        for j in range(0, 299):
             row = [dth_list[j], Death[j], Gender[j], Smoker[j], Diabetes[j], Arterial_Hypertension[j], Anaemia[j], Age[j],
                    ejf_list[j][i], sod_list[j][i], crt_list[j][i], plt_list[j][i], cpk_list[j][i]]
             csv_writer.writerow(row)

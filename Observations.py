@@ -8,16 +8,16 @@ import json
 
 def insert_data_obs(data, pos, hrt):
     headers = {"Content-Type": "application/json"}
-    counter = 100271
-    for i in range(0, 299):
+    counter = 100272
+    for i in range(0, 149):
         data['subject']['reference'] = f'Patient/{counter}'
         if pos == 3:
             data['valueQuantity']['value'] = float(hrt[i][pos])
         else:
             data['valueQuantity']['value'] = int(hrt[i][pos])
-        data['effectiveDateTime'] = str(datetime.datetime.now()).replace(" ", 'T').replace(".", "-04:00 ")[:25].replace("-09-12", "-01-04")
-        data['issued'] = str(datetime.datetime.now()).replace(" ", 'T').replace(".", "-04:00 ")[:25].replace("-09-12", "-01-04")
-        counter += 1
+        data['effectiveDateTime'] = str(datetime.datetime.now()).replace(" ", 'T').replace(".", "-04:00 ")[:25].replace("-09-13", "-09-11")
+        data['issued'] = str(datetime.datetime.now()).replace(" ", 'T').replace(".", "-04:00 ")[:25].replace("-09-13", "-09-11")
+        counter += 2
         rsp = requests.post("http://147.102.33.214:8080/fhir/Observation?_pretty=true", headers=headers,
                             data=json.dumps(data))
         if rsp.status_code == 400 or rsp.status_code == 404:
@@ -25,7 +25,6 @@ def insert_data_obs(data, pos, hrt):
         elif rsp.status_code == 201:
             print("Success!")
         sleep(2)
-        counter += 1
 
 
 def main():
