@@ -1,40 +1,20 @@
-<<<<<<< HEAD
-=======
 import csv
 from datetime import datetime
->>>>>>> af417752bbce89cc9724261c20719d9ac7a9812d
 import requests
 
 headers = {'Content-type': 'application/json'}
 
-<<<<<<< HEAD
-# with open('observation-data.json', 'r') as json_in:
-#     json_data = json_in.read()
-#
-# data = json.loads(json_data)
-#
-# for i in data['entry']:
-#     i['resource']['effectiveDateTime'] = '2022-08' + i['resource']['effectiveDateTime'][7:]
-#     i['resource']['issued'] = '2022-08' + i['resource']['effectiveDateTime'][7:]
-#     rsp = requests.put(f'http://147.102.33.214:8080/fhir/Observation/{int(i["resource"]["id"])}?_format=json&_pretty=true', headers=headers, data=json.dumps(i['resource']))
-#
-#     if rsp.status_code == 200:
-#         print('Success')
-#     sleep(2)
+# Patient
+Age = []
+Gender = []
 
-rsp = requests.get('http://147.102.33.214:8080/fhir/Condition?_getpagesoffset=7&_count=1502&_pretty=true&_bundletype=searchset', headers=headers)
-if rsp.status_code == 200:
-    for i in rsp.json()['entry']:
-        if i['resource']['recordedDate'][:7] != '2022-08':
-            print('The date dose not match!')
-=======
 # Observations
-CPK = []
-Platelets = []
-Creatinine = []
-Sodium = []
-Ejection_Fraction = []
-Date_Death = []
+cpk_list = list()
+plt_list = list()
+crt_list = list()
+sod_list = list()
+ejf_list = list()
+dth_list = list()
 
 # Conditions
 Anaemia = []
@@ -43,12 +23,7 @@ Smoker = []
 Arterial_Hypertension = []
 Death = []
 
-# Patient
-Age = []
-Gender = []
-
-
-for bundle in range(100271, 100570):
+for bundle in range(100271, 100569, 2):
     rsp = requests.get(
         f'http://147.102.33.214:8080/fhir/Patient?_id={bundle}&_revinclude=Observation:subject&_revinclude=Condition:subject&_pretty=True',
         headers=headers)
@@ -58,53 +33,68 @@ for bundle in range(100271, 100570):
     else:
         Gender.append(1)
 
-    for entry in range(1, 12):
-        match rsp.json()['entry'][entry]['resource']['code']['coding'][0]['display']:
-            case "Creatinine Phosphokinase":
-                CPK.append(rsp.json()['entry'][entry]['resource']['valueQuantity']['value'])
-            case "Platelets":
-                Platelets.append(rsp.json()['entry'][entry]['resource']['valueQuantity']['value'])
-            case "Creatinine":
-                Creatinine.append(rsp.json()['entry'][entry]['resource']['valueQuantity']['value'])
-            case "Sodium":
-                Sodium.append(rsp.json()['entry'][entry]['resource']['valueQuantity']['value'])
-            case "Ejection Fraction":
-                Ejection_Fraction.append(rsp.json()['entry'][entry]['resource']['valueQuantity']['value'])
-            case "Date Death":
-                Date_Death.append(rsp.json()['entry'][entry]['resource']['valueQuantity']['value'])
-            case "Anaemia":
-                if rsp.json()['entry'][entry]['resource']['clinicalStatus']['coding'][0]['code'] == "inactive":
-                    Anaemia.append(0)
-                else:
-                    Anaemia.append(1)
-            case "Diabetes":
-                if rsp.json()['entry'][entry]['resource']['clinicalStatus']['coding'][0]['code'] == "inactive":
-                    Diabetes.append(0)
-                else:
-                    Diabetes.append(1)
-            case "Smoker":
-                if rsp.json()['entry'][entry]['resource']['clinicalStatus']['coding'][0]['code'] == "inactive":
-                    Smoker.append(0)
-                else:
-                    Smoker.append(1)
-            case "Arterial Hypertension":
-                if rsp.json()['entry'][entry]['resource']['clinicalStatus']['coding'][0]['code'] == "inactive":
-                    Arterial_Hypertension.append(0)
-                else:
-                    Arterial_Hypertension.append(1)
-            case "Death":
-                if rsp.json()['entry'][entry]['resource']['clinicalStatus']['coding'][0]['code'] == "inactive":
-                    Death.append(0)
-                else:
-                    Death.append(1)
+    CPK = {}
+    Platelets = {}
+    Creatinine = {}
+    Sodium = {}
+    Ejection_Fraction = {}
+    Date_Death = {}
 
-with open('my-heart-failure.csv', 'w', newline='') as csv_out:
-    csv_writer = csv.writer(csv_out)
-    csv_writer.writerow(
-        ['TIME', 'Event', 'Gender', 'Smoking', 'Diabetes', 'BP', 'Anaemia', 'Age', 'Ejection.Fraction', 'Sodium', 'Creatinine',
-         'Platelets', 'CPK'])
-    for j in range(0, 299):
-        row = [Date_Death[j], Death[j], Gender[j], Smoker[j], Diabetes[j], Arterial_Hypertension[j], Anaemia[j], Age[j],
-               Ejection_Fraction[j], Sodium[j], Creatinine[j], Platelets[j], CPK[j]]
-        csv_writer.writerow(row)
->>>>>>> af417752bbce89cc9724261c20719d9ac7a9812d
+    for entry, _ in enumerate(rsp.json()['entry']):
+        if entry == 0:
+            continue
+        if rsp.json()['entry'][entry]['resource']['code']['coding'][0]['display'] == "Creatinine Phosphokinase":
+            CPK[rsp.json()['entry'][entry]['resource']['effectiveDateTime'][:7]] = rsp.json()['entry'][entry]['resource']['valueQuantity']['value']
+        elif rsp.json()['entry'][entry]['resource']['code']['coding'][0]['display'] == "Platelets":
+            Platelets[rsp.json()['entry'][entry]['resource']['effectiveDateTime'][:7]] = rsp.json()['entry'][entry]['resource']['valueQuantity']['value']
+        elif rsp.json()['entry'][entry]['resource']['code']['coding'][0]['display'] == "Creatinine":
+            Creatinine[rsp.json()['entry'][entry]['resource']['effectiveDateTime'][:7]] = rsp.json()['entry'][entry]['resource']['valueQuantity']['value']
+        elif rsp.json()['entry'][entry]['resource']['code']['coding'][0]['display'] == "Sodium":
+            Sodium[rsp.json()['entry'][entry]['resource']['effectiveDateTime'][:7]] = rsp.json()['entry'][entry]['resource']['valueQuantity']['value']
+        elif rsp.json()['entry'][entry]['resource']['code']['coding'][0]['display'] == "Ejection Fraction":
+            Ejection_Fraction[rsp.json()['entry'][entry]['resource']['effectiveDateTime'][:7]] = rsp.json()['entry'][entry]['resource']['valueQuantity']['value']
+        elif rsp.json()['entry'][entry]['resource']['code']['coding'][0]['display'] == "Date Death":
+            Date_Death['2022-08'] = rsp.json()['entry'][entry]['resource']['valueQuantity']['value']
+        elif rsp.json()['entry'][entry]['resource']['code']['coding'][0]['display'] == "Anaemia":
+            if rsp.json()['entry'][entry]['resource']['clinicalStatus']['coding'][0]['code'] == "inactive":
+                Anaemia.append(0)
+            else:
+                Anaemia.append(1)
+        elif rsp.json()['entry'][entry]['resource']['code']['coding'][0]['display'] == "Diabetes":
+            if rsp.json()['entry'][entry]['resource']['clinicalStatus']['coding'][0]['code'] == "inactive":
+                Diabetes.append(0)
+            else:
+                Diabetes.append(1)
+        elif rsp.json()['entry'][entry]['resource']['code']['coding'][0]['display'] == "Smoker":
+            if rsp.json()['entry'][entry]['resource']['clinicalStatus']['coding'][0]['code'] == "inactive":
+                Smoker.append(0)
+            else:
+                Smoker.append(1)
+        elif rsp.json()['entry'][entry]['resource']['code']['coding'][0]['display'] == "Arterial Hypertension":
+            if rsp.json()['entry'][entry]['resource']['clinicalStatus']['coding'][0]['code'] == "inactive":
+                Arterial_Hypertension.append(0)
+            else:
+                Arterial_Hypertension.append(1)
+        elif rsp.json()['entry'][entry]['resource']['code']['coding'][0]['display'] == "Death":
+            if rsp.json()['entry'][entry]['resource']['clinicalStatus']['coding'][0]['code'] == "inactive":
+                Death.append(0)
+            else:
+                Death.append(1)
+
+    cpk_list.append(CPK)
+    plt_list.append(Platelets)
+    crt_list.append(Creatinine)
+    sod_list.append(Sodium)
+    ejf_list.append(Ejection_Fraction)
+    dth_list.append(Date_Death['2022-08'])
+
+for i in cpk_list[0].keys():
+    with open(f'heart-failure_{i}.csv', 'w', newline='') as csv_out:
+        csv_writer = csv.writer(csv_out)
+        csv_writer.writerow(
+            ['TIME', 'Event', 'Gender', 'Smoking', 'Diabetes', 'BP', 'Anaemia', 'Age', 'Ejection.Fraction', 'Sodium', 'Creatinine',
+             'Platelets', 'CPK'])
+        for j in range(0, 149):
+            row = [dth_list[j], Death[j], Gender[j], Smoker[j], Diabetes[j], Arterial_Hypertension[j], Anaemia[j], Age[j],
+                   ejf_list[j][i], sod_list[j][i], crt_list[j][i], plt_list[j][i], cpk_list[j][i]]
+            csv_writer.writerow(row)
