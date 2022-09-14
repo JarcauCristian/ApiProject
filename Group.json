@@ -1,0 +1,11 @@
+{
+      "resourceType": "Group",
+      "text": {
+        "status": "additional"
+      },
+      "active": true,
+      "type": "person",
+      "actual": true,
+      "name": "Heart Failure Study Group",
+      "member": [  ]
+}
