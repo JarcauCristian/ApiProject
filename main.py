@@ -1,41 +1,36 @@
 import csv
 import json
 import random
-from pprint import pprint
+from datetime import datetime
 from time import sleep
-
 import requests
 
-with open("request.json", 'r') as json_in:
+
+with open("JSONFiles/request.json", 'r') as json_in:
     json_data = json_in.read()
 
 Headers = {"Content-Type": "application/json"}
 
-with open("patients.csv", 'r') as csv_in:
+with open("patients_2.csv", 'r') as csv_in:
     csv_data = csv.reader(csv_in)
 
     patients = list()
     for row in csv_data:
         patients.append(row)
 
-with open("heart_failure_clinical_records_dataset.csv", 'r') as csv_in:
+with open("heart.csv", 'r') as csv_in:
     csv_data = csv.reader(csv_in)
 
     hrt = list()
     for row in csv_data:
         hrt.append(row)
 
-
-patients = [e for e in patients if len(e) != 0]
-
 hrt.pop(0)
-patients.pop(0)
-
-
 data = json.loads(json_data)
 
-def match_country(str: str):
-    match str:
+
+def match_country(string: str):
+    match string:
         case 'RO':
             return [44.439663, 26.096306]
         case 'AL':
@@ -115,33 +110,32 @@ def match_country(str: str):
 
 
 def match_gender(gender: str):
-    if gender == 'female':
-        return 'F'
-    elif gender == 'male':
-        return 'M'
+    if gender == 'F':
+        return 'female'
+    elif gender == 'M':
+        return 'male'
 
 
-data['encounter'] = {'observation': list(), 'condition': list(), 'death-event': ''}
-
-for i in range(300, 301):
+for i in range(0, 918):
     data['address'][0]['city'] = patients[i][5]
     data['address'][0]['country'] = patients[i][6]
     data['address'][0]['extension'][0]['extension'][0]['valueDecimal'] = match_country(patients[i][6])[0]
     data['address'][0]['extension'][0]['extension'][1]['valueDecimal'] = match_country(patients[i][6])[1]
-    data['birthDate'] = patients[1][0]
-    data['extension'][1]['extension'][0]['valueCoding']['display'] = patients[i][2].lower().capitalize()
-    data['extension'][1]['extension'][1]['valueString'] = patients[i][2].lower().capitalize()
-    data['extension'][3]['valueAddress']['city'] = patients[i][5]
-    data['extension'][3]['valueAddress']['country'] = patients[i][6]
+    data['birthDate'] = str(datetime.now().year - int(patients[i][0][:2])) + patients[i][0][2:]
+    data['extension'][1]['valueCode'] = patients[i][1]
+    data['extension'][0]['extension'][0]['valueCoding']['display'] = patients[i][2].lower().capitalize()
+    data['extension'][0]['extension'][1]['valueString'] = patients[i][2].lower().capitalize()
+    data['extension'][2]['valueAddress']['city'] = patients[i][5]
+    data['extension'][2]['valueAddress']['country'] = patients[i][6]
     data['name'][0]['family'] = patients[i][4].lower().capitalize()
     data['name'][0]['given'] = patients[i][3].lower().capitalize()
     data['telecom'][0]['value'] = str(random.randint(1000000000, 9999999998))
-    data['gender'] = patients[i][1]
-    if patients[i][1] == 'male':
+    data['gender'] = match_gender(patients[i][1])
+    if match_gender(patients[i][1]) == 'male':
         data['identifier'][1]['value'] = "1" + str(random.randint(1000000000, 9999999998))
-    elif patients[i][1] == 'female':
+    elif match_gender(patients[i][1]) == 'female':
         data['identifier'][1]['value'] = "2" + str(random.randint(1000000000, 9999999998))
-    data['extension'][2]['valueCode'] = match_gender(patients[1999][1])
+    data['extension'][2]['valueCode'] = match_gender(patients[i][1])
     data['address'][0]['postalCode'] = str(random.randint(10000, 99998))
     if random.randint(0, 1) == 0:
         data['maritalStatus']['text'] = 'Never Married'
@@ -154,7 +148,10 @@ for i in range(300, 301):
 
     rsp = requests.post("http://147.102.33.214:8080/fhir/Patient?_pretty=true", headers=Headers, data=json.dumps(data))
     if rsp.status_code == 400 or rsp.status_code == 404:
-        print("Not Succes!")
+        print("Not Success!")
     elif rsp.status_code == 201:
-        print("Succes!")
+        print("Success!")
     sleep(3)
+
+# first patient id = 149953
+# last patient id = 150871

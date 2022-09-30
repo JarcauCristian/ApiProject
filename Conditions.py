@@ -16,7 +16,7 @@ def read_data():
 
 
 def main():
-    with open('request.json', 'r') as json_in:
+    with open('JSONFiles/request.json', 'r') as json_in:
         json_data = json_in.read()
 
     data = json.loads(json_data)

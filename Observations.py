@@ -30,19 +30,19 @@ def insert_data_obs(data, pos, hrt):
 def main():
     hrt = shuffle()
     # Read CPK Request
-    with open('Creatinine _Phosphokinase.json', 'r') as json_in:
+    with open('JSONFiles/Creatinine _Phosphokinase.json', 'r') as json_in:
         cpk_data = json_in.read()
     # Read Ejection Fraction Request
-    with open('Ejection_Fraction.json', 'r') as json_in:
+    with open('JSONFiles/Ejection_Fraction.json', 'r') as json_in:
         ejection_fraction_data = json_in.read()
     # Read Platelets Request
-    with open('Platelets.json', 'r') as json_in:
+    with open('JSONFiles/Platelets.json', 'r') as json_in:
         platelets_data = json_in.read()
     # Read Creatinine Request
-    with open('Creatinine.json', 'r') as json_in:
+    with open('JSONFiles/Creatinine.json', 'r') as json_in:
         creatinine_data = json_in.read()
     # Read Sodium Request
-    with open('Sodium.json', 'r') as json_in:
+    with open('JSONFiles/Sodium.json', 'r') as json_in:
         sodium_data = json_in.read()
 
     cpk = json.loads(cpk_data)

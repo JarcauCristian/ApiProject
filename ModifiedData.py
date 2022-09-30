@@ -6,7 +6,7 @@ import requests
 
 headers = {'Content-type': 'application/json'}
 
-with open('patients.json', 'r') as json_in:
+with open('JSONFiles/patients.json', 'r') as json_in:
     json_data = json_in.read()
 
 data = json.loads(json_data)

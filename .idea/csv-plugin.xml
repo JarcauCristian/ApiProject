@@ -17,14 +17,14 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="\heart-failure_2022-01.csv">
+        <entry key="\heart.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
             </Attribute>
           </value>
         </entry>
-        <entry key="\heart-failure_2022-03.csv">
+        <entry key="\heart_failure_clinical_records_dataset - Copy.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
@@ -46,6 +46,13 @@
           </value>
         </entry>
         <entry key="\patients.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\patients_2.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />

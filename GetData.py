@@ -4,7 +4,7 @@ import json
 
 headers = {"Content-Type": "application/json"}
 
-with open('observation_data.json', 'r') as json_in:
+with open('JSONFiles/observation_data.json', 'r') as json_in:
     json_data = json_in.read()
 
 data = json.loads(json_data)
