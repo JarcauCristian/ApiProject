@@ -1,0 +1,36 @@
+{
+	"resourceType": "Observation",
+	"status": "final",
+	"category": [
+	  {
+		"coding": [
+		  {
+			"system": "http://terminology.hl7.org/CodeSystem/observation-category",
+			"code": "vital-sign",
+			"display": "vital-sign"
+		  }
+		]
+	  }
+	],
+	"code": {
+	  "coding": [
+		{
+		  "system": "http://loinc.org",
+		  "code": "207556786",
+		  "display": "Chest Pain Type"
+		}
+	  ],
+	  "text": "Chest Pain Type"
+	},
+	"subject": {
+	  "reference": "Patient/"
+	},
+	"effectiveDateTime": "2021-07-18T19:10:16-04:00",
+	"issued": "2021-07-18T19:10:16-04:00",
+	"valueQuantity": {
+		"value": 117.90191404221025,
+		"unit": "type",
+		"system": "http://unitsofmeasure.org",
+		"code": "tp"
+	}
+}
